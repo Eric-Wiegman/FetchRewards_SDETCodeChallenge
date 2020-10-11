@@ -56,8 +56,12 @@ public class HomePage implements Constants {
 	 * 
 	 * @param q The query String used in the Search URL invoked
 	 */
-	public void search(String q) {
+	public SearchResultsPage search(String q) {
 		driver.navigate().to(SEARCH_URL + q);
+		
+		//if we get this far, then we are moving to the next page -- Search Results Page
+		return new SearchResultsPage(driver);
+		
 	}
 
 }

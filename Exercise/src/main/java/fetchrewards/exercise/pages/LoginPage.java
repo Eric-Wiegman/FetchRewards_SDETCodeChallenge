@@ -38,6 +38,8 @@ import io.appium.java_client.pagefactory.iOSXCUITFindBy;
  * 
  */
 public class LoginPage implements Constants {
+	
+	private static String errorMessage;
 
 	private static final Logger logger = LogManager.getLogger(LoginPage.class);
 
@@ -98,6 +100,20 @@ public class LoginPage implements Constants {
 	}
 
 	/**
+	 * @return the errorText
+	 */
+	public static String getErrorText() {
+		return errorMessage;
+	}
+
+	/**
+	 * @param errorMessage the errorText to set
+	 */
+	public static void setErrorText(String errorMessage) {
+		LoginPage.errorMessage = errorMessage;
+	}
+
+	/**
 	 * Calls the login method.
 	 * 
 	 * @param email    User's email used to log in to Facebook
@@ -105,7 +121,7 @@ public class LoginPage implements Constants {
 	 * @return An empty String if there is no error and the login was successful. If
 	 *         not successful, the text of the error message is returned.
 	 */
-	public String login(String email, String password) {
+	public HomePage login(String email, String password) {
 		String errorText = EMPTY_STRING;
 
 		logger.info("Running the login automation code");
@@ -117,6 +133,7 @@ public class LoginPage implements Constants {
 			// MobileElement, AndroidElement, or IOSElement ... to take advantage of
 			// gestures, etc.
 
+			mLoginEmail.clear();
 			mLoginEmail.sendKeys(email);
 			mLoginPassword.sendKeys(password);
 
@@ -132,6 +149,7 @@ public class LoginPage implements Constants {
 
 		default:
 			// same for Device or Native Web Element
+			loginEmail.clear();
 			loginEmail.sendKeys(email);
 			loginPassword.sendKeys(password);
 
@@ -145,6 +163,9 @@ public class LoginPage implements Constants {
 
 		}
 
-		return errorText;
+		setErrorText(errorText);
+		
+		//if we get this far, then we are moving to the next page -- Home Page
+		return new HomePage(driver);
 	}
 }

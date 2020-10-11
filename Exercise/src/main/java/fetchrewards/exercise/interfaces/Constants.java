@@ -8,7 +8,14 @@ package fetchrewards.exercise.interfaces;
  */
 public interface Constants extends CharConsts {
 	public static final String NO_ERR = EMPTY_STRING;
-	public static final String ERR_LOGIN = "The email you’ve entered doesn’t match any account. Sign up for an account.";
+	public static final String ERR_LOGIN_0 = 
+			"The email you’ve entered doesn’t match any account. Sign up for an account.";
+	public static final String ERR_LOGIN_1 = 
+			"The email or phone number you’ve entered doesn’t match any account. Sign up for an account.";
+	public static final String ERR_LOGIN_2 = 
+			"The password you’ve entered is incorrect. Forgot Password?";
+	public static final String ERR_LOGIN_3 =
+			"\"qa_missing@facebook.com\" is not associated with any Facebook account.";
 
 	// ************* From Properties File *************** //
 	public static final String OS_TO_TEST = "OS";
@@ -26,8 +33,10 @@ public interface Constants extends CharConsts {
 
 	public static final String DEFAULT_LOGIN_EMAIL = "eric_wiegman@hotmail.com";
 	public static final String DEFAULT_lOGIN_PASSWORD = "FetchTest123!!";
-	public static final String MISSING_LOGIN_EMAIL = "qa_missing@facebook.com";
-	public static final String MISSING_lOGIN_PASSWORD = "missing password";
+	public static final String INCORRECT_LOGIN_EMAIL = "qa_missing@facebook.com";
+	public static final String INCORRECT_lOGIN_PASSWORD = "missing password";
+	public static final String MISSING_LOGIN_EMAIL = EMPTY_STRING;
+	public static final String MISSING_lOGIN_PASSWORD = EMPTY_STRING;
 
 	public static final String BASE_URL = "https://www.facebook.com/";
 	public static final String START_URL = BASE_URL + "login/";

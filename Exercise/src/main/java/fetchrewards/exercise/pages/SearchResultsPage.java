@@ -52,10 +52,14 @@ public class SearchResultsPage implements Constants {
 
 	/**
 	 * Clicks the link to go to the Fetch Rewards App page.
+	 * @return 
 	 */
-	public void clickLinkToFetchRewardsApp() {
+	public FetchRewardsPage clickLinkToFetchRewardsApp() {
 
 		linkToApp.click();
+		
+		//if we get this far, then we are moving to the next page -- Fetch Rewards Page
+		return new FetchRewardsPage(driver);
 	}
 
 }

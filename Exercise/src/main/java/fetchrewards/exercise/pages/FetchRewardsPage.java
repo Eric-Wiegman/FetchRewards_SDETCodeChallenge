@@ -2,6 +2,7 @@ package fetchrewards.exercise.pages;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -59,7 +60,8 @@ public class FetchRewardsPage implements Constants {
 	private static WebDriver driver;
 
 	/**
-	 * Constructor that does lazy loading of the WebElements for the Facebook Fetch Rewards App page using Page Factory Code.
+	 * Constructor that does lazy loading of the WebElements for the Facebook Fetch
+	 * Rewards App page using Page Factory Code.
 	 * 
 	 * @param driver The Selenium WebDriver
 	 */
@@ -80,13 +82,20 @@ public class FetchRewardsPage implements Constants {
 
 		if (likeText.equals("Like")) {
 			like.click();
-			if (cantProcessRequest.isDisplayed()) {
+
+			try 
+			{
 				processingError = cantProcessRequest.getText();
 				logger.error(processingError);
+			} catch (NoSuchElementException e) {
+				// ignore the error -- we did not get the Processing Error 'alert'
 			}
+			
 		} else {
+
 			logger.info("This is already 'Liked' so nothing to do!");
 		}
+
 		return processingError;
 	}
 }

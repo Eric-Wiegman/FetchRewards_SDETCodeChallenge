@@ -3,11 +3,11 @@ package fetchrewards.exercise;
 import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import fetchrewards.exercise.interfaces.Constants;
 import fetchrewards.exercise.pages.FetchRewardsPage;
 import fetchrewards.exercise.pages.HomePage;
-import fetchrewards.exercise.pages.LoginPage;
 import fetchrewards.exercise.pages.SearchResultsPage;
 
 /**
@@ -55,20 +55,26 @@ public class FetchRewardsTest extends BaseTestClass implements Constants {
 	 */
 	@Test()
 	public void searchForFetchRewardsAppAndLikeIt() {
-        
-		new LoginPage(driver).login(DEFAULT_LOGIN_EMAIL, DEFAULT_lOGIN_PASSWORD);
+
+		//Creating softAssert object for doing verifications rather than hard-stop Asserts
+		SoftAssert softAssert = new SoftAssert();
+
+		HomePage hp = lp.login(DEFAULT_LOGIN_EMAIL, DEFAULT_lOGIN_PASSWORD);
 		assertEquals(driver.getTitle(), "Facebook");
 		// if not, we are not logged in and we remain on the `Login' page with the title
 		// of `Log into Facebook | Facebook' -- and it would be meaningless to continue
 
-		new HomePage(driver).search("FetchRewards");
-		new SearchResultsPage(driver).clickLinkToFetchRewardsApp();
-		String error = new FetchRewardsPage(driver).clickLike();
+		SearchResultsPage srp = hp.search("FetchRewards");
+		FetchRewardsPage frp = srp.clickLinkToFetchRewardsApp();
+		String error = frp.clickLike();
 		
-		assertEquals(error, EMPTY_STRING, "Failure to process the 'Like' button ...");
+		softAssert.assertEquals(error, EMPTY_STRING, "Failure to process the 'Like' button ...");
 		// above may likely occur because the Facebook web application seems to figure
 		// out that automation is being run, and refuses the 'Liking' in that case.
 
 		// I am not sure how to work around this issue!
+		
+		//Collates any soft assertion results and marks test as pass or fail
+		softAssert.assertAll();
 	}
 }
