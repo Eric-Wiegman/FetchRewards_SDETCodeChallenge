@@ -72,7 +72,11 @@ public class FetchRewardsTest extends BaseTestClass implements Constants {
 		// above may likely occur because the Facebook web application seems to figure
 		// out that automation is being run, and refuses the 'Liking' in that case.
 
-		// I am not sure how to work around this issue!
+		// If that happens, you must wait at least a number of hours, if not a day to be able to
+		//do 'Liking' again ... not an ideal situation when you want to automate Facebook! I do
+		//see where developers can get Test Users ... and perhaps the restrictions are less for
+		//that situation?
+		
 		
 		//Collates any soft assertion results and marks test as pass or fail
 		softAssert.assertAll();
